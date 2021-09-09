@@ -3,10 +3,11 @@
     "@nomiclabs/hardhat-ethers": "^2.0.2",
     "@nomiclabs/hardhat-solhint": "^2.0.0",
     "chai": "^4.3.4",
+    "ethers": "^5.4.6",
     "hardhat": "^2.6.3"
   },
   "name": "@mihanix/summing-priority-queue",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An utility library implementing summing priority queue in solidity",
   "directories": {
     "doc": "docs",
