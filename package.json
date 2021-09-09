@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MihanixA/smart-token-locker.git"
+    "url": "git+https://github.com/MihanixA/SummingPriorityQueue.git"
   },
   "keywords": [
     "solidity",
