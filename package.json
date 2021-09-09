@@ -1,0 +1,39 @@
+{
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-solhint": "^2.0.0",
+    "chai": "^4.3.4",
+    "hardhat": "^2.6.3"
+  },
+  "name": "@mihanix/summing-priority-queue",
+  "version": "1.0.0",
+  "description": "An utility library implementing summing priority queue in solidity",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MihanixA/smart-token-locker.git"
+  },
+  "keywords": [
+    "solidity",
+    "ethereum",
+    "smart",
+    "contracts",
+    "token",
+    "heap",
+    "queue",
+    "priority-queue",
+    "summing-priority-queue"
+  ],
+  "author": "Mikhail Sitnikov (https://github.com/MihanixA)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MihanixA/SummingPriorityQueue/issues"
+  },
+  "homepage": "https://github.com/MihanixA/SummingPriorityQueue#readme"
+}

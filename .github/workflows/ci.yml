@@ -1,0 +1,24 @@
+name: CI
+
+on: 
+  push: 
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use node
+        uses: actions/setup-node@v2
+        with:
+          npm-version: 7.20.x
+      - name: Install dependencies
+        run: npm install
+      - name: Run linter
+        run: npx hardhat check
+      - name: Run tests
+        run: npx hardhat test
