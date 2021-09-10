@@ -11,9 +11,44 @@ An utility library implementing summing priority queue in solidity
 npm install @mihanix/summing-priority-queue
 ```
 
-## Usage
+## Interface
 
-An example usage of asset delayed locking
+### `enqueue`
+
+```solidity
+function enqueue(uint256 key, uint256 value) public;
+```
+
+Adds an element with `key` and `value` to the heap.
+Also adds `value` to `totalEnqueuedAmount`.
+
+### `dequeue`
+
+```solidity
+function dequeue() public;
+```
+
+Popps an element with the lowest `key` and substracts corresponding `value` from `totalEnqueuedAmount`
+
+### `top` 
+
+```solidity
+function top() public returns(uint256);
+```
+
+Returns the lowest enqueued `key` 
+
+### `drain`
+
+```solidity
+function drain(uint256 ts) public;
+```
+
+Dequeues all elements lower then `ts`. Could be useful some times.
+
+## Example Usage
+
+An example usage of asset delayed locking (stock vesting analogy)
 
 ```solidity
 pragma solidity ^0.8.7;
@@ -23,17 +58,30 @@ import "@mihanix/summing-priority-queue/contracts/SummingPriorityQueue.sol";
 contract MyLockingContract {
     using SummingPriorityQueue for SummingPriorityQueue.Heap;
 
-    mappint(address => uint256) _balances;
+    // @notice user balances
+    mapping(address => uint256) _balances;
+    // @notice vesting locks
     mapping(address => SummingPriorityQueue.Heap) internal _withdrawLocks;
 
-    function lock(address holder, uint256 amount, uint256 timeOffset) {
+    // @notice lock an amount of tokens for timeOffset for holder 
+    function _lock(address holder, uint256 amount, uint256 timeOffset) internal {
         _withdrawLocks[holder].enqueue(amount, block.timestamp + timeOffset);
     }
 
-    function withdraw(uint256 amount) external {
-        _withdrawLocks[msg.sender].drain(block.timestamp);
-        uint256 lockedAmount = _withdrawLocks[msg.sender].totalEnqueuedAmount;
-        require(amount + lockedAmount <= _balances[msg.sender], "locked-up");
+    // @notice get locked amount of tokens
+    function _getLockedAmount(address holder) internal returns(uint256) {
+        _withdrawLocks[holder].drain(block.timestamp); // dequeue outdated locks 
+        return _withdrawLocks[holder].totalEnqueuedAmount;
     }
+
+    // @notice withdraw tokens and check vesting locks
+    function withdraw(uint256 amount) external {
+        uint256 lockedAmount = _getLockedAmount(msg.sender);
+        require(amount + lockedAmount <= _balances[msg.sender], "locked-up");
+        /* 
+         * Other business-logic...
+         */
+    }
+
 }
 ```
