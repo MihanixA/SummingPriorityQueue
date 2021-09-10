@@ -13,6 +13,15 @@ npm install @mihanix/summing-priority-queue
 
 ## Interface
 
+
+### `totalEnqueuedAmount`
+
+```solidity
+uint256 totalEnqueuedAmount;
+```
+
+Sum of all enqueued `value`'s.
+
 ### `enqueue`
 
 ```solidity
