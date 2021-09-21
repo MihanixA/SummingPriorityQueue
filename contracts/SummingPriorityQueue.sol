@@ -28,11 +28,12 @@ library SummingPriorityQueue {
 
         uint256 i = 1;
 
-        while (i * 2 < self.keys.length - 1) {
+        while (i * 2 < self.keys.length) {
             uint256 j = i * 2;
 
-            if (self.keys[j] > self.keys[j + 1]) 
-                j++;
+            if (j + 1 < self.keys.length)
+                if (self.keys[j] > self.keys[j + 1]) 
+                    j++;
             
             if (self.keys[i] < self.keys[j])
                 break;
